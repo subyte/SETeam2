@@ -20,6 +20,7 @@ public class UserBean {
 	private String state;
 	private String workexp;
 	private String category;
+	private String authorization;
 		
 	public int getJskid() {
 	return jskid;
@@ -128,5 +129,11 @@ public class UserBean {
 	}
 	public void setCategory(String category) {
 	this.category = category;
+	}
+	public String getAuthorization() {
+	return authorization;
+	}
+	public void setAuthorization(String authorization) {
+	this.authorization = authorization;
 	}
 }

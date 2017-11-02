@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class AuthDao {
 
-	public static UserBean getUserById (int userId){
+	public static UserBean getUserById (int userId,String type){
 		UserBean user = new UserBean();
 		try
 		{  
@@ -16,14 +16,16 @@ public class AuthDao {
 		"jdbc:mysql://localhost:3306/jobportal?zeroDateTimeBehavior=convertToNull","root","root");  
 		      
 		PreparedStatement ps=con.prepareStatement(  
-		"select * from login where userid=?");   
-		ps.setInt(1,userId);  
+		"select * from login where userid=? and type=?");   
+		ps.setInt(1,userId);
+		ps.setString(2,type);
 		ResultSet rs = ps.executeQuery();
 		      
 		if(rs.next()){
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
             user.setType(rs.getString("type"));
+            user.setAuthorization(rs.getString("authorization"));
             if(rs.getString("type").equalsIgnoreCase("jobseeker")){
             	PreparedStatement pss=con.prepareStatement("select firstname,lastname from jobseeker where username=?");   
 				pss.setString(1,rs.getString("username"));  
@@ -66,6 +68,26 @@ public class AuthDao {
 		ps.setString(1,username);
 		ps.setString(2,password);
 		ps.setString(3,type);
+		ResultSet rs = ps.executeQuery();
+		status=rs.next();
+		}
+		catch(Exception e)
+		{System.out.println(e);}  
+		return status;
+	}
+	
+	public static boolean checkAdmin(String username,String password){
+		boolean status=false; 
+		try
+		{  
+		Class.forName("com.mysql.jdbc.Driver");  
+		Connection con=DriverManager.getConnection(  
+		"jdbc:mysql://localhost:3306/jobportal?zeroDateTimeBehavior=convertToNull","root","root");  
+		      
+		PreparedStatement ps=con.prepareStatement(  
+		"select * from adminuser where username=? and password=?");   
+		ps.setString(1,username);
+		ps.setString(2,password);
 		ResultSet rs = ps.executeQuery();
 		status=rs.next();
 		}
@@ -146,11 +168,12 @@ public class AuthDao {
 			ResultSet rs = ps.executeQuery();
 			      
 			if(rs.next()){
-				ps=con.prepareStatement("insert into login(userid,username,password,type) values (?,?,?,?)");   
+				ps=con.prepareStatement("insert into login(userid,username,password,type,authorization) values (?,?,?,?,?)");   
 				ps.setInt(1,rs.getInt("jskid"));  
 				ps.setString(2,username);
 				ps.setString(3,password);
 				ps.setString(4,"Jobseeker");
+				ps.setString(5,"Pending");
 				int j = ps.executeUpdate();
 				if(j>0) return true;
 			}
@@ -185,11 +208,12 @@ public class AuthDao {
 					ResultSet rs = ps.executeQuery();
 					      
 					if(rs.next()){
-						ps=con.prepareStatement("insert into login(userid,username,password,type) values (?,?,?,?)");   
+						ps=con.prepareStatement("insert into login(userid,username,password,type,authorization) values (?,?,?,?,?)");   
 						ps.setInt(1,rs.getInt("empid"));  
 						ps.setString(2,username);
 						ps.setString(3,password);
 						ps.setString(4,"Employer");
+						ps.setString(5,"Pending");
 						int j = ps.executeUpdate();
 						if(j>0) return true;
 					}
@@ -200,7 +224,7 @@ public class AuthDao {
 		return false;
 	}
 	
-	public static int getUserId(String username){
+	public static int getUserId(String username,String type){
 		try
 		{  
 		Class.forName("com.mysql.jdbc.Driver");  
@@ -208,8 +232,9 @@ public class AuthDao {
 		"jdbc:mysql://localhost:3306/jobportal?zeroDateTimeBehavior=convertToNull","root","root");  
 		      
 		PreparedStatement ps=con.prepareStatement(  
-		"select * from login where username=?");   
-		ps.setString(1,username);  
+		"select * from login where username=? and type=?");   
+		ps.setString(1,username);
+		ps.setString(2,type); 
 		ResultSet rs = ps.executeQuery();
 		      
 		if(rs.next()){
