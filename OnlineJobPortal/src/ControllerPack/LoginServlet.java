@@ -49,22 +49,56 @@ public class LoginServlet extends HttpServlet {
 		 
 		boolean result = AuthDao.checkUserPass(username,password,type); 
 		if(result){
-		int userid = AuthDao.getUserId(username);
+		int userid = AuthDao.getUserId(username,type);
 		UserBean userBean = new UserBean();
-		userBean = AuthDao.getUserById(userid);
-		request.getSession().setAttribute("username", username);
-		request.getSession().setAttribute("type", type);
+		userBean = AuthDao.getUserById(userid,type);
+		String auth = userBean.getAuthorization();
 		if(type.equalsIgnoreCase("jobseeker")){
-			request.getSession().setAttribute("firstname", userBean.getFirstname());
-			request.getSession().setAttribute("lastname", userBean.getLastname());
-			
-			out.println("<script type=\"text/javascript\">");
-	        out.println("alert('Login Successfull!')"); 
-	        out.println("location='Jobseeker/jobseekermain.jsp';");
-	        out.println("</script>");
-			RequestDispatcher rd=request.getRequestDispatcher("Jobseeker/jobseekermain.jsp");  
+			if(auth.equalsIgnoreCase("Pending")){
+				out.println("<script type=\"text/javascript\">");
+		        out.println("alert('Authorization Pending. Please Contact Administrator!')"); 
+		        out.println("location='login.jsp';");
+		        out.println("</script>");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");  
 	        rd.include(request,response);
+			}else if(auth.equalsIgnoreCase("Denied")){
+				out.println("<script type=\"text/javascript\">");
+		        out.println("alert('Authorization Denied. Please Contact Administrator!')"); 
+		        out.println("location='login.jsp';");
+		        out.println("</script>");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");  
+	        rd.include(request,response);
+			}else{
+				request.getSession().setAttribute("username", username);
+				request.getSession().setAttribute("type", type);
+				request.getSession().setAttribute("firstname", userBean.getFirstname());
+				request.getSession().setAttribute("lastname", userBean.getLastname());
+				
+				out.println("<script type=\"text/javascript\">");
+		        out.println("alert('Login Successfull!')"); 
+		        out.println("location='Jobseeker/jobseekermain.jsp';");
+		        out.println("</script>");
+				RequestDispatcher rd=request.getRequestDispatcher("Jobseeker/jobseekermain.jsp");  
+		        rd.include(request,response);
+			}
 		}else if(type.equalsIgnoreCase("employer")){
+			if(auth.equalsIgnoreCase("Pending")){
+				out.println("<script type=\"text/javascript\">");
+		        out.println("alert('Authorization Pending. Please Contact Administrator!')"); 
+		        out.println("location='login.jsp';");
+		        out.println("</script>");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");  
+	        rd.include(request,response);
+			}else if(auth.equalsIgnoreCase("Denied")){
+				out.println("<script type=\"text/javascript\">");
+		        out.println("alert('Authorization Denied. Please Contact Administrator!')"); 
+		        out.println("location='login.jsp';");
+		        out.println("</script>");
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");  
+	        rd.include(request,response);
+			}else{
+			request.getSession().setAttribute("username", username);
+			request.getSession().setAttribute("type", type);
 			request.getSession().setAttribute("cmpname", userBean.getCompanyname());
 			request.getSession().setAttribute("contactname", userBean.getContactname());
 			
@@ -74,6 +108,7 @@ public class LoginServlet extends HttpServlet {
 	        out.println("</script>");
 			RequestDispatcher rd=request.getRequestDispatcher("Employer/employermain.jsp");  
 	        rd.include(request,response);
+			}
 		}
 		}else{
 			out.println("<script type=\"text/javascript\">");
