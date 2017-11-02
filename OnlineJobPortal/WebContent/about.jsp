@@ -257,12 +257,13 @@
 			<div class="clearfix"> </div>
 		</div>
 		<div class="col-md-3 grid_3">
-			<h4>Twitter</h4>
+			<h4>Benefits</h4>
 			<div class="footer-list">
 			  <ul>
-				<li><i class="fa fa-twitter tw1"> </i><p><span class="yellow"><a href="#">consectetuer</a></span> adipiscing elit web design</p></li>
-				<li><i class="fa fa-twitter tw1"> </i><p><span class="yellow"><a href="#">consectetuer</a></span> adipiscing elit web design</p></li>
-				<li><i class="fa fa-twitter tw1"> </i><p><span class="yellow"><a href="#">consectetuer</a></span> adipiscing elit web design</p></li>
+				<li><p> Wider Search Reach</p></li>
+				<li><p> Fully Secured</p></li>
+				<li><p> Easy to Apply</p></li>
+				<li><p> Find the Right Job</p></li>
 			  </ul>
 			</div>
 		</div>
@@ -277,7 +278,7 @@
 		</div>
 		<div class="clearfix"> </div>
 		<div class="copy">
-		<p>Copyright Â© 2017 Job Portal. All Rights Reserved.</p>
+		<p>Copyright © 2017 Job Portal. All Rights Reserved.</p>
 	</div>
 	</div>
 </div>
