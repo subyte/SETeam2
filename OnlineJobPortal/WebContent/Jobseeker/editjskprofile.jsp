@@ -9,7 +9,6 @@
     try {
         if ((session.getAttribute("username")).toString() == null || (session.getAttribute("type")).toString() != "jobseeker") {
             response.sendRedirect("../login.jsp");
-            System.out.println("here");
         }
     } catch (Exception e) {
         response.sendRedirect("../login.jsp");
@@ -17,7 +16,7 @@
 %>
 <html>
 <head>
-<title>Jobseeker Home</title>
+<title>Edit Profile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -61,29 +60,20 @@
 		<div id="search_wrapper1">
 		   <div id="search_form" class="clearfix">
 		   <h4>Welcome <%=request.getSession().getAttribute("firstname") %> <%=request.getSession().getAttribute("lastname") %></h4>
-		    <h1>Jobseeker Home</h1>
+		    <h1>Edit Profile</h1>
 			</div>
 		</div>
    </div> 
 </div>	
-<div class="container" style="margin-bottom:3em">
-    <div class="single" style="padding:2em 0">  
-	   <div class="col-lg-12">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="searchjobs.jsp"><i class="fa fa-suitcase" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Search Jobs</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="appliedjobs.jsp"><i class="fa fa-tags" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Applied Jobs</p>
-	   </div></div>
-	   <div class="col-lg-12" style="margin-top: 2%">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="jsknotify.jsp"><i class="fa fa-random" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Notifications</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="uploadresume.jsp"><i class="fa fa-upload" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Upload Resume</p>
-	   </div></div>
+<div class="container">
+    <div class="single">  
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 </div>
 </div>
 <div class="footer">
