@@ -188,7 +188,7 @@
 <div class="about_bottom">
 	<div class="container">
 		<h3>Our Team</h3>
-	    <div class="col-md-4 team-member text-center">
+	    <div class="col-md-6 team-member text-center">
 		    <img src="images/f9.jpg" class="img-responsive img-circle1" alt=""/>
 			<h5>Saurin Khedia</h5>
 			<h6>Team Member</h6>
@@ -197,26 +197,8 @@
 			<a href="#"><i class="fa fa-linkedin fa1"> </i></a>
 			<a href="#"><i class="fa fa-instagram fa1"> </i></a>
 		</div>
-		<div class="col-md-4 team-member text-center">
-			<img src="images/f8.jpg" class="img-responsive img-circle1" alt=""/>
-			<h5>Yasin Cakal</h5>
-			<h6>Team Member</h6>
-			<a href="#"><i class="fa fa-facebook fa1"> </i></a>
-			<a href="#"><i class="fa fa-twitter fa1"> </i></a>
-			<a href="#"><i class="fa fa-linkedin fa1"> </i></a>
-			<a href="#"><i class="fa fa-instagram fa1"> </i></a>
-		</div>
-		<div class="col-md-4 team-member text-center">
-		    <img src="images/f10.jpg" class="img-responsive img-circle1" alt=""/>
-			<h5>Nitasha Gupta</h5>
-			<h6>Team Member</h6>
-			<a href="#"><i class="fa fa-facebook fa1"> </i></a>
-			<a href="#"><i class="fa fa-twitter fa1"> </i></a>
-			<a href="#"><i class="fa fa-linkedin fa1"> </i></a>
-			<a href="#"><i class="fa fa-instagram fa1"> </i></a>
-		</div>
 		<div class="col-md-6 team-member text-center">
-	        <img src="images/f7.jpg" class="img-responsive img-circle1" alt=""/>
+		    <img src="images/f7.jpg" class="img-responsive img-circle1" alt=""/>
 			<h5>Mohammad Abdul Rahim</h5>
 			<h6>Team Member</h6>
 			<a href="#"><i class="fa fa-facebook fa1"> </i></a>
@@ -225,7 +207,16 @@
 			<a href="#"><i class="fa fa-instagram fa1"> </i></a>
 		</div>
 		<div class="col-md-6 team-member text-center">
-	        <img src="images/f7.jpg" class="img-responsive img-circle1" alt=""/>
+	        <img src="images/f10.jpg" class="img-responsive img-circle1" alt=""/>
+			<h5>Nitasha Gupta</h5>
+			<h6>Team Member</h6>
+			<a href="#"><i class="fa fa-facebook fa1"> </i></a>
+			<a href="#"><i class="fa fa-twitter fa1"> </i></a>
+			<a href="#"><i class="fa fa-linkedin fa1"> </i></a>
+			<a href="#"><i class="fa fa-instagram fa1"> </i></a>
+		</div>
+		<div class="col-md-6 team-member text-center">
+	        <img src="images/f8.jpg" class="img-responsive img-circle1" alt=""/>
 			<h5>Aditya Kiran</h5>
 			<h6>Team Member</h6>
 			<a href="#"><i class="fa fa-facebook fa1"> </i></a>

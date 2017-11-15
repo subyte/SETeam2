@@ -7,12 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<link href="css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
+<link href="css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css'>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="css/datepicker3.min.css" />
+<script src="js/bootstrap-datepicker.min.js"></script>
+<link href="css/style.css" rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -67,7 +69,7 @@
     <div class="single">  
 	   <div class="form-container">
         <h2>Jobseeker Registration</h2>
-        <form name="form" action="JskRegisterServlet" method="post" enctype="multipart/form-data">
+        <form name="form" id="form" action="JskRegisterServlet" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="username">Username</label>
@@ -104,7 +106,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="contact">Contact Number</label>
                 <div class="col-md-9">
-                    <input type="text" name="contact" id="contact" class="form-control input-sm" required/>
+                    <input type="text" name="contact" id="contact" class="form-control input-sm" pattern="^[0-9]*$" required/>
                 </div>
             </div>
         </div>
@@ -127,7 +129,10 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="dob">Date of Birth</label>
                 <div class="col-md-9">
-                    <input type="text" name="dob" id="dob" class="form-control input-sm" required/>
+                    <div class="input-group input-append date" id="datePicker">
+                		<input type="text" class="form-control" name="dob" id="dob" />
+                		<span class="input-group-addon add-on"><span class="fa fa-calendar"></span></span>
+            		</div>
                 </div>
             </div>
         </div>
@@ -135,7 +140,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="email">Email</label>
                 <div class="col-md-9">
-                    <input type="text" name="email" id="email" class="form-control input-sm" required/>
+                    <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control input-sm" required/>
                 </div>
             </div>
         </div>
@@ -143,7 +148,16 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="education">Education</label>
                 <div class="col-md-9">
-                    <input type="text" name="education" id="education" class="form-control input-sm" required/>
+                    <select name="education" id="education" class="form-control input-sm" required>
+                        <option value="">-- Select Education --</option>
+    					<option value="No Formal Education">No Formal Education</option>
+    					<option value="Primary Education">Primary Education</option>
+    					<option value="Secondary Education">Secondary Education</option>
+    					<option value="Diploma Certificate">Diploma Certificate</option>
+    					<option value="Bachelor's Degree">Bachelor's Degree</option>
+    					<option value="Master's Degree">Master's Degree</option>
+						<option value="Doctorate or higher">Doctorate or higher</option>   
+                    </select>
                 </div>
             </div>
         </div>
@@ -350,5 +364,16 @@
 	</div>
 	</div>
 </div>
+<script>
+$(document).ready(function() {
+    $('#datePicker')
+        .datepicker({
+            format: 'yyyy/mm/dd'
+        })
+        .on('changeDate', function(e) {
+            $('#form').formValidation('revalidateField', 'date');
+        });
+});
+</script>
 </body>
 </html>	

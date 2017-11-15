@@ -104,7 +104,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="contactEmp">Contact Number</label>
                 <div class="col-md-9">
-                    <input type="text" name="contactEmp" id="contactEmp" class="form-control input-sm" required/>
+                    <input type="text" name="contactEmp" id="contactEmp" class="form-control input-sm" pattern="^[0-9]*$" required/>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="emailEmp">Company Email</label>
                 <div class="col-md-9">
-                    <input type="text" name="emailEmp" id="emailEmp" class="form-control input-sm" required/>
+                    <input type="text" name="emailEmp" id="emailEmp" class="form-control input-sm" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
                 </div>
             </div>
         </div>
