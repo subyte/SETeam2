@@ -16,7 +16,7 @@
 %>
 <html>
 <head>
-<title>Employer Home</title>
+<title>Notifications</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -60,29 +60,17 @@
 		<div id="search_wrapper1">
 		   <div id="search_form" class="clearfix">
 		   <h4>Welcome <%=request.getSession().getAttribute("contactname") %> || <%=request.getSession().getAttribute("cmpname") %></h4>
-		    <h1>Employer Home</h1>
+		    <h1>Notifications</h1>
 			</div>
 		</div>
    </div> 
 </div>	
-<div class="container" style="margin-bottom:3em">
-    <div class="single" style="padding:2em 0">  
-	   <div class="col-lg-12">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="postjob.jsp"><i class="fa fa-suitcase" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Post Job</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="searchjobseekers.jsp"><i class="fa fa-users" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Search Jobseekers</p>
-	   </div></div>
-	   <div class="col-lg-12" style="margin-top: 2%;">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="empnotify.jsp"><i class="fa fa-random" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Notifications</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="editjobs.jsp"><i class="fa fa-pencil-square-o" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Edit Jobs</p>
-	   </div></div>
+<div class="container">
+    <div class="single">  
+	   
+	   
+	   
+	   
 </div>
 </div>
 <div class="footer">

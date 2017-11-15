@@ -1,3 +1,7 @@
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,7 +20,7 @@
 %>
 <html>
 <head>
-<title>Employer Home</title>
+<title>Edit Jobs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -25,7 +29,18 @@
 <script src="../js/bootstrap.min.js"></script>
 <link href="../css/style.css" rel='stylesheet' type='text/css' />
 <link href='//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
-<link href="../css/font-awesome.css" rel="stylesheet"> 
+<link href="../css/font-awesome.css" rel="stylesheet">
+<script>
+$(function() {
+	$("#searchedit").on("keyup", function() {
+	    var g = $(this).val().toLowerCase();
+	    $(".panel .panel-body").each(function() {
+	        var s = $(this).text().toLowerCase();
+	        $(this).closest('.panel')[ s.indexOf(g) !== -1 ? 'show' : 'hide' ]();
+	    });
+	});
+});
+</script>  
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -60,29 +75,48 @@
 		<div id="search_wrapper1">
 		   <div id="search_form" class="clearfix">
 		   <h4>Welcome <%=request.getSession().getAttribute("contactname") %> || <%=request.getSession().getAttribute("cmpname") %></h4>
-		    <h1>Employer Home</h1>
+		    <h1>Edit Jobs</h1>
 			</div>
 		</div>
    </div> 
 </div>	
-<div class="container" style="margin-bottom:3em">
-    <div class="single" style="padding:2em 0">  
-	   <div class="col-lg-12">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="postjob.jsp"><i class="fa fa-suitcase" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Post Job</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="searchjobseekers.jsp"><i class="fa fa-users" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Search Jobseekers</p>
-	   </div></div>
-	   <div class="col-lg-12" style="margin-top: 2%;">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="empnotify.jsp"><i class="fa fa-random" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Notifications</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="editjobs.jsp"><i class="fa fa-pencil-square-o" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Edit Jobs</p>
-	   </div></div>
+<div class="container">
+    <div class="single">  
+	   <div class="form-container">
+    <input type="text" id="searchedit" placeholder="Search Here"/>
+    		<h2>Current Jobs</h2>  
+                <% Class.forName("com.mysql.jdbc.Driver");  
+                
+                Connection con=DriverManager.getConnection(  
+                "jdbc:mysql://localhost:3306/jobportal?zeroDateTimeBehavior=convertToNull","root","root");  
+  
+                PreparedStatement ps=con.prepareStatement(
+                "select * from jobs where companyname=?");
+                
+                ps.setString(1, request.getSession().getAttribute("cmpname").toString());    
+                ResultSet rs=ps.executeQuery();
+                
+                while (rs.next())
+                {
+                %>
+				<div class="panel panel-default">
+				<div class="panel-body">
+				<div class="col-lg-4"><p><b>Job Id:</b> <%= rs.getString(2) %> </p></div>
+				<div class="col-lg-4"><p><b>Job Title:</b> <%= rs.getString(5) %> </p></div>
+				<div class="col-lg-4"><p><b>Work Experience:</b> <%= rs.getString(6) %> </p></div>
+				<div class="col-lg-4"><p><b>Education:</b> <%= rs.getString(7) %> </p></div>
+				<div class="col-lg-4"><p><b>Job Category:</b> <%= rs.getString(8) %> </p></div>
+				<div class="col-lg-4"><p><b>Location:</b> <%= rs.getString(11) %>, <%= rs.getString(12) %> </p></div>
+				<div class="col-lg-8"><p><b>Job Description:</b> <%= rs.getString(10) %> </p></div>
+				<div class="col-lg-4"><p><b>Key Skills:</b> <%= rs.getString(9) %> </p></div>
+				<a href="updatejob.jsp?jid=<%= rs.getInt(1) %>" style="text-decoration:none"><input type="button" value="Edit Job" class="btn btn-primary btn-sm" style="margin:15px"></a>
+				<a href="../DeleteJobServlet?jid=<%= rs.getInt(1) %>" style="text-decoration:none"><input type="button" value="Delete Job" class="btn btn-primary btn-sm"></a>
+				</div>
+				</div>
+                <%
+                }
+                %>
+</div> 	   
 </div>
 </div>
 <div class="footer">
@@ -91,6 +125,6 @@
 		<p>Copyright © 2017 Job Portal. All Rights Reserved.</p>
 	</div>
 	</div>
-</div>
+</div> 
 </body>
 </html>	

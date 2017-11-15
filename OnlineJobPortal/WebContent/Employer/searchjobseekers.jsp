@@ -1,3 +1,7 @@
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,7 +20,7 @@
 %>
 <html>
 <head>
-<title>Employer Home</title>
+<title>Search Jobseekers</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -25,7 +29,24 @@
 <script src="../js/bootstrap.min.js"></script>
 <link href="../css/style.css" rel='stylesheet' type='text/css' />
 <link href='//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
-<link href="../css/font-awesome.css" rel="stylesheet"> 
+<link href="../css/font-awesome.css" rel="stylesheet">
+<script>
+function sendemail(email,company){
+	var subject = "Interview call with "+company;
+	var body = "Greetings!\n\nThis email is regards to an interview call with "+company+".\n\nRegards,\n"+company;
+	var mailToLink = "mailto:"+email+"?subject="+subject+"&body=" + encodeURIComponent(body);
+	window.location.href = mailToLink;	
+}
+$(function() {
+	$("#searchbox").on("keyup", function() {
+	    var g = $(this).val().toLowerCase();
+	    $(".panel .panel-body").each(function() {
+	        var s = $(this).text().toLowerCase();
+	        $(this).closest('.panel')[ s.indexOf(g) !== -1 ? 'show' : 'hide' ]();
+	    });
+	});
+});
+</script> 
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -60,29 +81,47 @@
 		<div id="search_wrapper1">
 		   <div id="search_form" class="clearfix">
 		   <h4>Welcome <%=request.getSession().getAttribute("contactname") %> || <%=request.getSession().getAttribute("cmpname") %></h4>
-		    <h1>Employer Home</h1>
+		    <h1>Search Jobseekers</h1>
 			</div>
 		</div>
    </div> 
 </div>	
-<div class="container" style="margin-bottom:3em">
-    <div class="single" style="padding:2em 0">  
-	   <div class="col-lg-12">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="postjob.jsp"><i class="fa fa-suitcase" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Post Job</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="searchjobseekers.jsp"><i class="fa fa-users" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Search Jobseekers</p>
-	   </div></div>
-	   <div class="col-lg-12" style="margin-top: 2%;">
-	   <div class="col-lg-6" style="text-align:center">
-	   <a href="empnotify.jsp"><i class="fa fa-random" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Notifications</p>
-	   </div><div class="col-lg-6" style="text-align:center">
-	   <a href="editjobs.jsp"><i class="fa fa-pencil-square-o" style="font-size:7em"></i></a>
-	   <p style="font-size:30px;color:#333">Edit Jobs</p>
-	   </div></div>
+<div class="container">
+    <div class="single">
+    <div class="form-container">
+    <input type="text" id="searchbox" placeholder="Search Here"/>
+    		<h2>Jobseekers</h2>  
+                <% Class.forName("com.mysql.jdbc.Driver");  
+                
+                Connection con=DriverManager.getConnection(  
+                "jdbc:mysql://localhost:3306/jobportal?zeroDateTimeBehavior=convertToNull","root","root");  
+  
+                PreparedStatement ps=con.prepareStatement(
+                "select * from jobseeker");        
+                    
+                ResultSet rs=ps.executeQuery();
+                
+                while (rs.next())
+                {
+                %>
+				<div class="panel panel-default">
+				<div class="panel-body">
+				<div class="col-lg-3"><p><b>Name:</b> <%= rs.getString(3) %> <%= rs.getString(4) %> </p></div>
+				<div class="col-lg-3"><p><b>Contact No:</b> <%= rs.getString(5) %> </p></div>
+				<div class="col-lg-3"><p><b>Date of Birth:</b> <%= rs.getString(7) %> </p></div>
+				<div class="col-lg-3"><p><b>Email:</b> <%= rs.getString(8) %> </p></div>
+				<div class="col-lg-3"><p><b>Education:</b> <%= rs.getString(9) %> </p></div>
+				<div class="col-lg-3"><p><b>Location:</b> <%= rs.getString(10) %>, <%= rs.getString(11) %> </p></div>
+				<div class="col-lg-3"><p><b>Work Experience:</b> <%= rs.getString(12) %> </p></div>
+				<div class="col-lg-3"><p><b>Category:</b> <%= rs.getString(13) %> </p></div>
+				<a href="../Resume/<%= rs.getString(14) %>" download style="text-decoration:none"><input type="button" value="Download Resume" class="btn btn-primary btn-sm" style="margin:15px"></a>
+				<input type="button" value="Send Email" class="btn btn-primary btn-sm" onclick="sendemail('<%= rs.getString(8) %>','<%=request.getSession().getAttribute("cmpname") %>')">
+				</div>
+				</div>
+                <%
+                }
+                %>
+</div>   
 </div>
 </div>
 <div class="footer">
