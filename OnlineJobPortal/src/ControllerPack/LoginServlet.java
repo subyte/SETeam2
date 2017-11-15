@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
 	        rd.include(request,response);
 			}else{
 				request.getSession().setAttribute("username", username);
-				request.getSession().setAttribute("type", type);
+				request.getSession().setAttribute("type", "jobseeker");
 				request.getSession().setAttribute("firstname", userBean.getFirstname());
 				request.getSession().setAttribute("lastname", userBean.getLastname());
 				
@@ -98,7 +98,7 @@ public class LoginServlet extends HttpServlet {
 	        rd.include(request,response);
 			}else{
 			request.getSession().setAttribute("username", username);
-			request.getSession().setAttribute("type", type);
+			request.getSession().setAttribute("type", "employer");
 			request.getSession().setAttribute("cmpname", userBean.getCompanyname());
 			request.getSession().setAttribute("contactname", userBean.getContactname());
 			

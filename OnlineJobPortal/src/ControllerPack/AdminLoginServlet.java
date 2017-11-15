@@ -49,6 +49,7 @@ public class AdminLoginServlet extends HttpServlet {
 		boolean result = AuthDao.checkAdmin(username, password); 
 		if(result){
 			request.getSession().setAttribute("username", username);
+			request.getSession().setAttribute("type", "admin");
 			
 			out.println("<script type=\"text/javascript\">");
 	        out.println("alert('Login Successfull!')"); 
