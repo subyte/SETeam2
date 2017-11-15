@@ -12,7 +12,7 @@
 %>
 <%
     try {
-        if ((session.getAttribute("username")).toString() == null) {
+        if ((session.getAttribute("username")).toString() == null || (session.getAttribute("type")).toString() != "admin") {
             response.sendRedirect("adminlogin.jsp");
         }
     } catch (Exception e) {
@@ -81,6 +81,9 @@
                     
                 ResultSet rs=ps.executeQuery();
                 ResultSetMetaData rsmd=rs.getMetaData();
+                
+                while (rs.next())
+                {
                 %>
                 <tr>
                     <td><b><%= rsmd.getColumnName(1) %></b></td>
@@ -93,9 +96,6 @@
                     <td><b><%= rsmd.getColumnName(8) %></b></td> 
                     <td><b><%= rsmd.getColumnName(9) %></b></td>
                 </tr>
-                <% while (rs.next())
-                {
-                %>
                 <tr>
                 	<td><%= rs.getInt(1) %></td>
                     <td><%= rs.getString(2) %></td>

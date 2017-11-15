@@ -12,7 +12,7 @@
 %>
 <%
     try {
-        if ((session.getAttribute("username")).toString() == null) {
+        if ((session.getAttribute("username")).toString() == null || (session.getAttribute("type")).toString() != "admin") {
             response.sendRedirect("adminlogin.jsp");
         }
     } catch (Exception e) {
@@ -108,17 +108,17 @@
                 <tr>
                 	<td><%= rs.getInt(1) %></td>
                     <td><%= rs.getString(2) %></td>
-                    <td><input type="text" name="jfname" style="width:90px" value="<%= rs.getString(3) %>"></td>
-                    <td><input type="text" name="jlname" style="width:90px" value="<%= rs.getString(4) %>"></td>
-                    <td><input type="text" name="jcontact" style="width:90px" value="<%= rs.getString(5) %>"></td>
-                    <td><input type="text" name="jgender" style="width:90px" value="<%= rs.getString(6) %>"></td>
-                    <td><input type="text" name="jdob" style="width:90px" value="<%= rs.getString(7) %>"></td>
-                    <td><input type="text" name="jemail" style="width:90px" value="<%= rs.getString(8) %>"></td>
-                    <td><input type="text" name="jeducation" style="width:90px" value="<%= rs.getString(9) %>"></td>
-                    <td><input type="text" name="jcity" style="width:90px" value="<%= rs.getString(10) %>"></td>
-                    <td><input type="text" name="jstate" style="width:90px" value="<%= rs.getString(11) %>"></td>
-                    <td><input type="text" name="jworkexp" style="width:90px" value="<%= rs.getString(12) %>"></td>
-                    <td><input type="text" name="jcategory" style="width:90px" value="<%= rs.getString(13) %>"></td>
+                    <td><input type="text" name="jfname" style="width:90px" value="<%= rs.getString(3) %>" required></td>
+                    <td><input type="text" name="jlname" style="width:90px" value="<%= rs.getString(4) %>" required></td>
+                    <td><input type="text" name="jcontact" style="width:90px" value="<%= rs.getString(5) %>" pattern="^[0-9]*$" required></td>
+                    <td><input type="text" name="jgender" style="width:90px" value="<%= rs.getString(6) %>" required></td>
+                    <td><input type="text" name="jdob" style="width:90px" value="<%= rs.getString(7) %>" required></td>
+                    <td><input type="text" name="jemail" style="width:90px" value="<%= rs.getString(8) %>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></td>
+                    <td><input type="text" name="jeducation" style="width:90px" value="<%= rs.getString(9) %>" required></td>
+                    <td><input type="text" name="jcity" style="width:90px" value="<%= rs.getString(10) %>" required></td>
+                    <td><input type="text" name="jstate" style="width:90px" value="<%= rs.getString(11) %>" required></td>
+                    <td><input type="text" name="jworkexp" style="width:90px" value="<%= rs.getString(12) %>" required></td>
+                    <td><input type="text" name="jcategory" style="width:90px" value="<%= rs.getString(13) %>" required></td>
                     <td><input type="submit" value="Update"></td>
                     <td><input type="button" value="Cancel" onclick="window.location.href='alljobseekers.jsp';"></td>
                 </tr>

@@ -12,7 +12,7 @@
 %>
 <%
     try {
-        if ((session.getAttribute("username")).toString() == null) {
+        if ((session.getAttribute("username")).toString() == null || (session.getAttribute("type")).toString() != "admin") {
             response.sendRedirect("adminlogin.jsp");
         }
     } catch (Exception e) {
@@ -104,13 +104,13 @@
                 <tr>
                 	<td><%= rs.getInt(1) %></td>
                     <td><%= rs.getString(2) %></td>
-                    <td><input type="text" name="ecmpname" style="width:135px" value="<%= rs.getString(3) %>"></td>
-                    <td><input type="text" name="econtactname" style="width:135px" value="<%= rs.getString(4) %>"></td>
-                    <td><input type="text" name="econtactno" style="width:135px" value="<%= rs.getString(5) %>"></td>
-                    <td><input type="text" name="eemail" style="width:135px" value="<%= rs.getString(6) %>"></td>
-                    <td><input type="text" name="ecity" style="width:135px" value="<%= rs.getString(7) %>"></td>
-                    <td><input type="text" name="estate" style="width:135px" value="<%= rs.getString(8) %>"></td>
-                    <td><input type="text" name="ecategory" style="width:135px" value="<%= rs.getString(9) %>"></td>
+                    <td><input type="text" name="ecmpname" style="width:135px" value="<%= rs.getString(3) %>" required></td>
+                    <td><input type="text" name="econtactname" style="width:135px" value="<%= rs.getString(4) %>" required></td>
+                    <td><input type="text" name="econtactno" style="width:135px" value="<%= rs.getString(5) %>" pattern="^[0-9]*$" required></td>
+                    <td><input type="text" name="eemail" style="width:135px" value="<%= rs.getString(6) %>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></td>
+                    <td><input type="text" name="ecity" style="width:135px" value="<%= rs.getString(7) %>" required></td>
+                    <td><input type="text" name="estate" style="width:135px" value="<%= rs.getString(8) %>" required></td>
+                    <td><input type="text" name="ecategory" style="width:135px" value="<%= rs.getString(9) %>" required></td>
                     <td><input type="submit" value="Update"></td>
                     <td><input type="button" value="Cancel" onclick="window.location.href='allemployers.jsp';"></td>
                 </tr>
