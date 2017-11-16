@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `jobportal` 
+CREATE DATABASE  IF NOT EXISTS `jobportal`;
 
 DROP TABLE IF EXISTS `adminuser`;
 
